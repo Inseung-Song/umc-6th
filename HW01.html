@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            background-color: rgb(162, 211, 225);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .card {
+            width: 800px;
+            height: auto;
+            background-color: #dbecf3;
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* 자식 요소들을 수평 중앙 정렬 */
+        }
+        input {
+            width: calc(100% - 5px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid white; /* 흰색 선으로 테두리 추가 */
+            border-radius: 5px; /* 둥근 모서리를 위해 추가 */
+            background-color: #dbecf3; /* 배경색 지정 */
+        }
+        h6 {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: left; /* 자식 요소들을 수평 중앙 정렬 */
+            width: 100%; /* 부모 요소와 너비 일치 */
+        }
+        .submit-button {
+            background-color: gray;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center; /* 가운데 정렬 */
+            width: 150px; /* 버튼 너비 조절 */
+            margin-top: 10px; /* 위쪽 여백 추가 */
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>회원가입</h2>
+        <form id="signup-form">
+            <div class="form-group">
+                <h6>이름</h6>
+                <input type="text" name="st_name" id="st_name">
+                <p id="name-error" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <h6>이메일</h6>
+                <input type="email" name="st_email" id="st_email">
+                <p id="email-error" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <h6>나이</h6>
+                <input type="number" name="st_age" id="st_age">
+                <p id="age-error" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <h6>비밀번호</h6>
+                <input type="password" name="st_password" id="st_password">
+                <p id="password-error" class="error-message"></p>
+            </div>
+            <div class="form-group">
+                <h6>비밀번호 확인</h6>
+                <input type="password" name="st_confirm_password" id="st_confirm_password">
+                <p id="confirm-password-error" class="error-message"></p>
+            </div>
+            <button type="submit" class="submit-button" id="submit-button">가입하기</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('signup-form');
+        const nameInput = document.getElementById('st_name');
+        const emailInput = document.getElementById('st_email');
+        const ageInput = document.getElementById('st_age');
+        const passwordInput = document.getElementById('st_password');
+        const confirmPasswordInput = document.getElementById('st_confirm_password');
+        const submitButton = document.getElementById('submit-button');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            validateForm();
+        });
+
+        function validateForm() {
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const age = parseInt(ageInput.value);
+            const password = passwordInput.value;
+            const confirmPassword = confirmPasswordInput.value;
+
+            let isValid = true;
+
+            // 각 입력란의 조건을 검사하고 조건을 만족했을 때 해당 입력란 아래에 메시지를 출력하고 색상을 변경합니다.
+            if (name === '') {
+            document.getElementById('name-error').innerText = '필수 입력 항목입니다!';
+            document.getElementById('name-error').style.color = 'red';
+            isValid = false;
+        } else if (!isNaN(parseFloat(name))) {
+            document.getElementById('name-error').innerText = '이름에는 숫자를 입력할 수 없습니다.';
+            document.getElementById('name-error').style.color = 'red';
+            isValid = false;
+        } else {
+            document.getElementById('name-error').innerText = '멋진 이름이네요!.';
+            document.getElementById('name-error').style.color = 'green';
+        }
+
+            if (email === '') {
+                document.getElementById('email-error').innerText = '올바른 이메일 형식이 아닙니다!';
+                document.getElementById('email-error').style.color = 'red';
+                isValid = false;
+            } else {
+                document.getElementById('email-error').innerText = '올바른 이메일 형식입니다!';
+                document.getElementById('email-error').style.color = 'green';
+            }
+
+            if (isNaN(age) || age < 1 || age % 1 !== 0) {
+            document.getElementById('age-error').innerText = '나이를 올바르게 입력해주세요.';
+            document.getElementById('age-error').style.color = 'red';
+            isValid = false;
+        } else if (age < 19) {
+            document.getElementById('age-error').innerText = '우리 영화 사이트는 19세 이상만 가입이 가능합니다.';
+            document.getElementById('age-error').style.color = 'red';
+            isValid = false;
+        } else {
+            document.getElementById('age-error').innerText = '올바른 나이 형식입니다!';
+            document.getElementById('age-error').style.color = 'green';
+        }
+
+        if (password === '') {
+            document.getElementById('password-error').innerText = '비밀번호를 입력해주세요.';
+            document.getElementById('password-error').style.color = 'red';
+            isValid = false;
+        } else if (password.length < 4) {
+            document.getElementById('password-error').innerText = '비밀번호는 최소 4자리 이상이어야 합니다.';
+            document.getElementById('password-error').style.color = 'red';
+            isValid = false;
+        } else if (password.length > 12) {
+            document.getElementById('password-error').innerText = '비밀번호는 최대 12자리까지 가능합니다.';
+            document.getElementById('password-error').style.color = 'red';
+            isValid = false;
+        } else if (!(/[a-zA-Z]/.test(password) && /\d/.test(password) && /[~`!@#$%^&*()_+={}[\]:;<>,.?\/\\|]/.test(password))) {
+            document.getElementById('password-error').innerText = '영어, 숫자, 특수문자를 모두 포함해야 합니다.';
+            document.getElementById('password-error').style.color = 'red';
+            isValid = false;
+        } else {
+            document.getElementById('password-error').innerText = '올바른 비밀번호입니다!';
+            document.getElementById('password-error').style.color = 'green';
+        }
+
+            if (confirmPassword === '' || confirmPassword !== password) {
+                document.getElementById('confirm-password-error').innerText = '비밀번호가 일치하지 않습니다.';
+                document.getElementById('confirm-password-error').style.color = 'red';
+                isValid = false;
+            } else {
+                document.getElementById('confirm-password-error').innerText = '비밀번호가 일치합니다!';
+                document.getElementById('confirm-password-error').style.color = 'green';
+            }
+            if (isValid) {
+                alert('가입성공!');
+        }
+    }
+    </script>
+</body>
+</html>
