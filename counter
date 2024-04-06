@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Counter</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <h2 id="number">0</h2>
+    <div>
+      <button id="increase">+1</button>
+      <button id="decrease">-1</button>
+    </div>
+
+    <script>
+      const increaseButton = document.getElementById('increase');
+      const decreaseButton = document.getElementById('decrease');
+      const numberDisplay = document.getElementById('number');
+
+      
+      increaseButton.addEventListener('click', function() {
+       let currentNumber = parseInt(numberDisplay.textContent);
+      currentNumber += 1;
+       numberDisplay.textContent = currentNumber;
+      });
+
+      
+      decreaseButton.addEventListener('click', function() {
+        let currentNumber = parseInt(numberDisplay.textContent);
+        currentNumber -= 1;
+        numberDisplay.textContent = currentNumber;
+      });
+    </script>
+  </body>
+</html>
