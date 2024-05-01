@@ -1,0 +1,54 @@
+body {
+  background-color: #192F60;
+}
+
+.app-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
+
+.movie-container {
+  width: 250px;
+  margin: 16px;
+  background-color: #091F92;
+  color: white;
+  border-radius: 10px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.movie-container img {
+  max-width: 100%;
+}
+
+.movie-info {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movie-info h4 {
+  margin: 0;
+}
+
+.movie-info span {
+  margin-left: 10px;
+  color: gold;
+}
+
+.ov-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  font-size: 12px;
+  background-color: black;
+  opacity: 0.7;
+  display: none;
+  padding: 20px;
+}
+.movie-container:hover .ov-container{
+ display: block;
+}
